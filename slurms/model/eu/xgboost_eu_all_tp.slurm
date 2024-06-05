@@ -1,0 +1,31 @@
+#!/bin/sh
+#SBATCH --partition=GPUQ
+#SBATCH --gres=gpu:1
+#SBATCH --constraint="gpu40g|gpu32g|gpu80g"
+#SBATCH --account=share-ie-idi
+#SBATCH --time=100:00:00
+#SBATCH --nodes=1
+#SBATCH --cpus-per-task=16
+#SBATCH --mem=250G
+#SBATCH --job-name="eu_xgboost_all_tp"
+#SBATCH --output=output/eu_xgboost_all_tp.txt
+#SBATCH --mail-user=ktarlind@stud.ntnu.no
+#SBATCH --mail-type=ALL
+
+WORKDIR=${SLURM_SUBMIT_DIR}
+cd ${WORKDIR}
+echo "we are running from this directory: $SLURM_SUBMIT_DIR"
+echo " the name of the job is: $SLURM_JOB_NAME"
+echo "Th job ID is $SLURM_JOB_ID"
+echo "The job was run on these nodes: $SLURM_JOB_NODELIST"
+echo "Number of nodes: $SLURM_JOB_NUM_NODES"
+echo "We are using $SLURM_CPUS_ON_NODE cores"
+echo "We are using $SLURM_CPUS_ON_NODE cores per node"
+echo "Total of $SLURM_NTASKS cores"
+
+module purge
+module load Anaconda3/2022.10
+python ../scripts/models/run_model_n_tp.py -model xgb -region Europe -fundamentals_delay 90 --test_on_fridays --scale -win_pc 0.01 -parallel 1 --friday -iterations 1900 -learning_rate 0.0028 -depth 6 -l2_leaf_reg 5.9 -test_year_splits "2020,2015,2010,2005"
+
+uname -a
+

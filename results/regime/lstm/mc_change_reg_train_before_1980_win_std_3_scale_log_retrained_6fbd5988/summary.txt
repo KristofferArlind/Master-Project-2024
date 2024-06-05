@@ -1,0 +1,25 @@
+Model: "sequential_1"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ lstm_2 (LSTM)               (None, 50, 200)           174400    
+                                                                 
+ lstm_3 (LSTM)               (None, 200)               320800    
+                                                                 
+ dense_6 (Dense)             (None, 100)               20100     
+                                                                 
+ dropout_1 (Dropout)         (None, 100)               0         
+                                                                 
+ dense_7 (Dense)             (None, 100)               10100     
+                                                                 
+ dense_8 (Dense)             (None, 50)                5050      
+                                                                 
+ dense_9 (Dense)             (None, 20)                1020      
+                                                                 
+ dense_10 (Dense)            (None, 1)                 21        
+                                                                 
+=================================================================
+Total params: 531491 (2.03 MB)
+Trainable params: 531491 (2.03 MB)
+Non-trainable params: 0 (0.00 Byte)
+_________________________________________________________________
